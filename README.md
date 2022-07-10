@@ -1,6 +1,7 @@
 <div align="center">
 
-# asdf-websocat ![Build](https://github.com/bdellegrazie/asdf-websocat/workflows/Build/badge.svg) ![Lint](https://github.com/bdellegrazie/asdf-websocat/workflows/Lint/badge.svg)
+# asdf-websocat [![Build](https://github.com/bdellegrazie/asdf-websocat/actions/workflows/build.yml/badge.svg)](https://github.com/bdellegrazie/asdf-websocat/actions/workflows/build.yml) [![Lint](https://github.com/bdellegrazie/asdf-websocat/actions/workflows/lint.yml/badge.svg)](https://github.com/bdellegrazie/asdf-websocat/actions/workflows/lint.yml)
+
 
 [websocat](https://github.com/vi/websocat) plugin for the [asdf version manager](https://asdf-vm.com).
 
@@ -10,14 +11,13 @@
 
 - [Dependencies](#dependencies)
 - [Install](#install)
-- [Why?](#why)
 - [Contributing](#contributing)
 - [License](#license)
 
 # Dependencies
 
 - `bash`, `curl`, `tar`: generic POSIX utilities.
-- `SOME_ENV_VAR`: set this environment variable in your shell config to load the correct version of tool x.
+- `ASDF_WEBSOCAT_VERSION`: set this environment variable in your shell config to load the correct version of tool x.
 
 # Install
 
@@ -26,10 +26,20 @@ Plugin:
 ```shell
 asdf plugin add websocat
 # or
-asdf plugin add https://github.com/bdellegrazie/asdf-websocat.git
+asdf plugin add websocat https://github.com/bdellegrazie/asdf-websocat.git
 ```
 
 websocat:
+
+*WARNING*: due to release naming changes in the source project this plugin only supports releases `v1.10.0` or higher.
+
+However, as a work-around for version issues or platform detection failure, you can override the "target" part of the URL below
+by setting the environment variable `ASDF_WEBSOCAT_DISTRO` to the desired target. Platform auto-detection is difficult and there
+might be bugs here - please raise an issue on GitHub if yours is detected incorrectly.
+
+```shell
+"$GH_REPO/releases/download/v${version}/${target}"
+```
 
 ```shell
 # Show all installable versions
@@ -56,4 +66,4 @@ Contributions of any kind welcome! See the [contributing guide](contributing.md)
 
 # License
 
-See [LICENSE](LICENSE) © [Brett Delle Grazie](https://github.com/bdellegrazie/)
+See [LICENSE](LICENSE) © [<YOUR NAME>](https://github.com/bdellegrazie/)
