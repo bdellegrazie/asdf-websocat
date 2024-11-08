@@ -69,6 +69,12 @@ download_release() {
           *) fail "OS not supported: $uname_s" ;;
         esac
         ;;
+      arm64)
+        case "$uname_s" in
+          Darwin) target="websocat.aarch64-apple-darwin" ;;
+          *) fail "OS not supported: $uname_s" ;;
+        esac
+        ;;
       arm*)
         case "$uname_s" in
           Linux) target="websocat.arm-unknown-linux-musleabi" ;;
