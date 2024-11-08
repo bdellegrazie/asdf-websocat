@@ -12,9 +12,9 @@ mkdir -p "$ASDF_DOWNLOAD_PATH"
 
 declare extension=""
 case "$OSTYPE" in
-  CYGWIN*|MINGW32_NT*|MSYS*|Windows*|msys*)
-    extension=".exe"
-    ;;
+CYGWIN* | MINGW32_NT* | MSYS* | Windows* | msys*)
+  extension=".exe"
+  ;;
 esac
 
 # TODO: Adapt this to proper extension and adapt extracting strategy.
@@ -23,4 +23,4 @@ release_file="${ASDF_DOWNLOAD_PATH}/${TOOL_NAME}${extension:-}"
 # Download to the download directory
 download_release "$ASDF_INSTALL_VERSION" "$release_file"
 
-chmod a+x ${release_file}
+chmod a+x "${release_file}"

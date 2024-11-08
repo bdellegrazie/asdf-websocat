@@ -50,55 +50,58 @@ download_release() {
   # shellcheck disable=SC2155
   local target="${ASDF_WEBSOCAT_DISTRO:-}"
 
-  if [[ -z "${target}" ]] ; then
+  if [[ -z "${target}" ]]; then
     # https://doc.rust-lang.org/nightly/rustc/platform-support.html
     case "$uname_m" in
-      aarch64)
-        case "$uname_s" in
-          Android) target="websocat.aarch64-linux-android" ;;
-          Darwin)
-            # Use x86_64 until native aarch64 binary released
-            target="websocat.x86_64-apple-darwin" ;;
-          Linux) target="websocat.aarch64-unknown-linux-musl" ;;
-          *) fail "OS not supported: $uname_s" ;;
-        esac
+    aarch64)
+      case "$uname_s" in
+      Android) target="websocat.aarch64-linux-android" ;;
+      Darwin)
+        # Use x86_64 until native aarch64 binary released
+        target="websocat.x86_64-apple-darwin"
         ;;
-      armv7*)
-        case "$uname_s" in
-          Android) target="websocat.armv7-linux-androideabi" ;;
-          *) fail "OS not supported: $uname_s" ;;
-        esac
+      Linux) target="websocat.aarch64-unknown-linux-musl" ;;
+      *) fail "OS not supported: $uname_s" ;;
+      esac
+      ;;
+    armv7*)
+      case "$uname_s" in
+      Android) target="websocat.armv7-linux-androideabi" ;;
+      *) fail "OS not supported: $uname_s" ;;
+      esac
+      ;;
+    arm64)
+      case "$uname_s" in
+      Darwin) target="websocat.aarch64-apple-darwin" ;;
+      *) fail "OS not supported: $uname_s" ;;
+      esac
+      ;;
+    arm*)
+      case "$uname_s" in
+      Linux) target="websocat.arm-unknown-linux-musleabi" ;;
+      *) fail "OS not supported: $uname_s" ;;
+      esac
+      ;;
+    i?86)
+      case "$uname_s" in
+      CYGWIN* | MINGW32_NT* | MSYS* | Windows*)
+        target="websocat.i686-pc-windows-gnu.exe"
         ;;
-      arm64)
-        case "$uname_s" in
-          Darwin) target="websocat.aarch64-apple-darwin" ;;
-          *) fail "OS not supported: $uname_s" ;;
-        esac
+      *) fail "OS not supported: $uname_s" ;;
+      esac
+      ;;
+    x86_64)
+      case "$uname_s" in
+      Darwin) target="websocat.x86_64-apple-darwin" ;;
+      FreeBSD) target="websocat.x86_64-unknown-freebsd" ;;
+      Linux) target="websocat.x86_64-unknown-linux-musl" ;;
+      CYGWIN* | MINGW32_NT* | MSYS* | Windows*)
+        target="websocat.x86_64-pc-windows-gnu.exe"
         ;;
-      arm*)
-        case "$uname_s" in
-          Linux) target="websocat.arm-unknown-linux-musleabi" ;;
-          *) fail "OS not supported: $uname_s" ;;
-        esac
-        ;;
-      i?86)
-        case "$uname_s" in
-          CYGWIN*|MINGW32_NT*|MSYS*|Windows*)
-            target="websocat.i686-pc-windows-gnu.exe";;
-          *) fail "OS not supported: $uname_s" ;;
-        esac
-        ;;
-      x86_64)
-        case "$uname_s" in
-          Darwin) target="websocat.x86_64-apple-darwin" ;;
-          FreeBSD) target="websocat.x86_64-unknown-freebsd" ;;
-          Linux) target="websocat.x86_64-unknown-linux-musl" ;;
-          CYGWIN*|MINGW32_NT*|MSYS*|Windows*)
-            target="websocat.x86_64-pc-windows-gnu.exe" ;;
-          *) fail "OS not supported: $uname_s" ;;
-        esac
-        ;;
-      *) fail "Architecture not supported: $uname_m" ;;
+      *) fail "OS not supported: $uname_s" ;;
+      esac
+      ;;
+    *) fail "Architecture not supported: $uname_m" ;;
     esac
   fi
   url="$GH_REPO/releases/download/v${version}/${target}"
