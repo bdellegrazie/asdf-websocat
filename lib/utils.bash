@@ -56,10 +56,7 @@ download_release() {
     aarch64)
       case "$uname_s" in
       Android) target="websocat.aarch64-linux-android" ;;
-      Darwin)
-        # Use x86_64 until native aarch64 binary released
-        target="websocat.x86_64-apple-darwin"
-        ;;
+      Darwin) target="websocat.aarch64-apple-darwin" ;;
       Linux) target="websocat.aarch64-unknown-linux-musl" ;;
       *) fail "OS not supported: $uname_s" ;;
       esac
